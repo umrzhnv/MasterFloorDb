@@ -1,0 +1,374 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Database1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Заявка">
+          <Key>
+            <PropertyRef Name="Id_Заявки" />
+          </Key>
+          <Property Name="Id_Заявки" Type="int" Nullable="false" />
+          <Property Name="Id_Партнера" Type="int" Nullable="false" />
+          <Property Name="Id_Продукции" Type="int" Nullable="false" />
+          <Property Name="Id_Сотрудника" Type="int" Nullable="false" />
+          <Property Name="Дата_заявки" Type="datetime" Nullable="false" />
+          <Property Name="Дата_обработки" Type="datetime" />
+          <Property Name="Статус_заявки" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Комментарий_сотрудника" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Импортируемая_продукция">
+          <Key>
+            <PropertyRef Name="Id_Продукции" />
+          </Key>
+          <Property Name="Id_Продукции" Type="int" Nullable="false" />
+          <Property Name="Id_Тип_продукции" Type="int" />
+          <Property Name="Наименование_продукции" Type="nvarchar" MaxLength="100" />
+          <Property Name="Артикул" Type="nvarchar" MaxLength="50" />
+          <Property Name="Минимальная_стоимость_для_партнера" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Партнеры">
+          <Key>
+            <PropertyRef Name="Id_Партнера" />
+          </Key>
+          <Property Name="Id_Партнера" Type="int" Nullable="false" />
+          <Property Name="Тип_партнера" Type="nvarchar" MaxLength="50" />
+          <Property Name="Наименование_партнера" Type="nvarchar" MaxLength="100" />
+          <Property Name="Директор" Type="nvarchar" MaxLength="100" />
+          <Property Name="Электронная_почта" Type="nvarchar" MaxLength="100" />
+          <Property Name="Телефон" Type="nvarchar" MaxLength="20" />
+          <Property Name="Юридический_адрес" Type="nvarchar" MaxLength="255" />
+          <Property Name="ИНН" Type="nvarchar" MaxLength="12" />
+          <Property Name="Рейтинг" Type="int" />
+        </EntityType>
+        <EntityType Name="Сотрудники">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ФИО" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ДатаРождения" Type="date" Nullable="false" />
+          <Property Name="ПаспортныеДанные" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="БанковскиеРеквизиты" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="НаличиеСемьи" Type="bit" Nullable="false" />
+          <Property Name="СостояниеЗдоровья" Type="text" />
+          <Property Name="Доступ" Type="bit" Nullable="false" />
+          <Property Name="Должность" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Тип_импортируемой_продукции">
+          <Key>
+            <PropertyRef Name="Id_Тип_продукции" />
+          </Key>
+          <Property Name="Id_Тип_продукции" Type="int" Nullable="false" />
+          <Property Name="Тип_продукции" Type="nvarchar" MaxLength="50" />
+          <Property Name="Коэффициент_типа_продукции" Type="decimal" Precision="5" Scale="2" />
+        </EntityType>
+        <Association Name="FK__Заявка__Id_Партн__45F365D3">
+          <End Role="Партнеры" Type="Self.Партнеры" Multiplicity="1" />
+          <End Role="Заявка" Type="Self.Заявка" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Партнеры">
+              <PropertyRef Name="Id_Партнера" />
+            </Principal>
+            <Dependent Role="Заявка">
+              <PropertyRef Name="Id_Партнера" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заявка__Id_Проду__46E78A0C">
+          <End Role="Импортируемая_продукция" Type="Self.Импортируемая_продукция" Multiplicity="1" />
+          <End Role="Заявка" Type="Self.Заявка" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Импортируемая_продукция">
+              <PropertyRef Name="Id_Продукции" />
+            </Principal>
+            <Dependent Role="Заявка">
+              <PropertyRef Name="Id_Продукции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заявка__Id_Сотру__47DBAE45">
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="1" />
+          <End Role="Заявка" Type="Self.Заявка" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сотрудники">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Заявка">
+              <PropertyRef Name="Id_Сотрудника" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Импортиру__Id_Ти__3E52440B">
+          <End Role="Тип_импортируемой_продукции" Type="Self.Тип_импортируемой_продукции" Multiplicity="0..1" />
+          <End Role="Импортируемая_продукция" Type="Self.Импортируемая_продукция" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Тип_импортируемой_продукции">
+              <PropertyRef Name="Id_Тип_продукции" />
+            </Principal>
+            <Dependent Role="Импортируемая_продукция">
+              <PropertyRef Name="Id_Тип_продукции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Database1ModelContainer">
+          <EntitySet Name="Заявка" EntityType="Self.Заявка" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Импортируемая_продукция" EntityType="Self.Импортируемая_продукция" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Партнеры" EntityType="Self.Партнеры" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Тип_импортируемой_продукции" EntityType="Self.Тип_импортируемой_продукции" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Заявка__Id_Партн__45F365D3" Association="Self.FK__Заявка__Id_Партн__45F365D3">
+            <End Role="Партнеры" EntitySet="Партнеры" />
+            <End Role="Заявка" EntitySet="Заявка" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заявка__Id_Проду__46E78A0C" Association="Self.FK__Заявка__Id_Проду__46E78A0C">
+            <End Role="Импортируемая_продукция" EntitySet="Импортируемая_продукция" />
+            <End Role="Заявка" EntitySet="Заявка" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заявка__Id_Сотру__47DBAE45" Association="Self.FK__Заявка__Id_Сотру__47DBAE45">
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+            <End Role="Заявка" EntitySet="Заявка" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Импортиру__Id_Ти__3E52440B" Association="Self.FK__Импортиру__Id_Ти__3E52440B">
+            <End Role="Тип_импортируемой_продукции" EntitySet="Тип_импортируемой_продукции" />
+            <End Role="Импортируемая_продукция" EntitySet="Импортируемая_продукция" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Заявка">
+          <Key>
+            <PropertyRef Name="Id_Заявки" />
+          </Key>
+          <Property Name="Id_Заявки" Type="Int32" Nullable="false" />
+          <Property Name="Id_Партнера" Type="Int32" Nullable="false" />
+          <Property Name="Id_Продукции" Type="Int32" Nullable="false" />
+          <Property Name="Id_Сотрудника" Type="Int32" Nullable="false" />
+          <Property Name="Дата_заявки" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Дата_обработки" Type="DateTime" Precision="3" />
+          <Property Name="Статус_заявки" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Комментарий_сотрудника" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Партнеры" Relationship="Self.FK__Заявка__Id_Партн__45F365D3" FromRole="Заявка" ToRole="Партнеры" />
+          <NavigationProperty Name="Импортируемая_продукция" Relationship="Self.FK__Заявка__Id_Проду__46E78A0C" FromRole="Заявка" ToRole="Импортируемая_продукция" />
+          <NavigationProperty Name="Сотрудники" Relationship="Self.FK__Заявка__Id_Сотру__47DBAE45" FromRole="Заявка" ToRole="Сотрудники" />
+        </EntityType>
+        <EntityType Name="Импортируемая_продукция">
+          <Key>
+            <PropertyRef Name="Id_Продукции" />
+          </Key>
+          <Property Name="Id_Продукции" Type="Int32" Nullable="false" />
+          <Property Name="Id_Тип_продукции" Type="Int32" />
+          <Property Name="Наименование_продукции" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Артикул" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Минимальная_стоимость_для_партнера" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Заявка" Relationship="Self.FK__Заявка__Id_Проду__46E78A0C" FromRole="Импортируемая_продукция" ToRole="Заявка" />
+          <NavigationProperty Name="Тип_импортируемой_продукции" Relationship="Self.FK__Импортиру__Id_Ти__3E52440B" FromRole="Импортируемая_продукция" ToRole="Тип_импортируемой_продукции" />
+        </EntityType>
+        <EntityType Name="Партнеры">
+          <Key>
+            <PropertyRef Name="Id_Партнера" />
+          </Key>
+          <Property Name="Id_Партнера" Type="Int32" Nullable="false" />
+          <Property Name="Тип_партнера" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Наименование_партнера" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Директор" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Электронная_почта" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Телефон" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Юридический_адрес" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ИНН" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="Рейтинг" Type="Int32" />
+          <NavigationProperty Name="Заявка" Relationship="Self.FK__Заявка__Id_Партн__45F365D3" FromRole="Партнеры" ToRole="Заявка" />
+        </EntityType>
+        <EntityType Name="Сотрудники">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ФИО" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ДатаРождения" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ПаспортныеДанные" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="БанковскиеРеквизиты" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="НаличиеСемьи" Type="Boolean" Nullable="false" />
+          <Property Name="СостояниеЗдоровья" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Доступ" Type="Boolean" Nullable="false" />
+          <Property Name="Должность" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Заявка" Relationship="Self.FK__Заявка__Id_Сотру__47DBAE45" FromRole="Сотрудники" ToRole="Заявка" />
+        </EntityType>
+        <EntityType Name="Тип_импортируемой_продукции">
+          <Key>
+            <PropertyRef Name="Id_Тип_продукции" />
+          </Key>
+          <Property Name="Id_Тип_продукции" Type="Int32" Nullable="false" />
+          <Property Name="Тип_продукции" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Коэффициент_типа_продукции" Type="Decimal" Precision="5" Scale="2" />
+          <NavigationProperty Name="Импортируемая_продукция" Relationship="Self.FK__Импортиру__Id_Ти__3E52440B" FromRole="Тип_импортируемой_продукции" ToRole="Импортируемая_продукция" />
+        </EntityType>
+        <Association Name="FK__Заявка__Id_Партн__45F365D3">
+          <End Role="Партнеры" Type="Self.Партнеры" Multiplicity="1" />
+          <End Role="Заявка" Type="Self.Заявка" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Партнеры">
+              <PropertyRef Name="Id_Партнера" />
+            </Principal>
+            <Dependent Role="Заявка">
+              <PropertyRef Name="Id_Партнера" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заявка__Id_Проду__46E78A0C">
+          <End Role="Импортируемая_продукция" Type="Self.Импортируемая_продукция" Multiplicity="1" />
+          <End Role="Заявка" Type="Self.Заявка" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Импортируемая_продукция">
+              <PropertyRef Name="Id_Продукции" />
+            </Principal>
+            <Dependent Role="Заявка">
+              <PropertyRef Name="Id_Продукции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Заявка__Id_Сотру__47DBAE45">
+          <End Role="Сотрудники" Type="Self.Сотрудники" Multiplicity="1" />
+          <End Role="Заявка" Type="Self.Заявка" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Сотрудники">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Заявка">
+              <PropertyRef Name="Id_Сотрудника" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Импортиру__Id_Ти__3E52440B">
+          <End Role="Тип_импортируемой_продукции" Type="Self.Тип_импортируемой_продукции" Multiplicity="0..1" />
+          <End Role="Импортируемая_продукция" Type="Self.Импортируемая_продукция" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Тип_импортируемой_продукции">
+              <PropertyRef Name="Id_Тип_продукции" />
+            </Principal>
+            <Dependent Role="Импортируемая_продукция">
+              <PropertyRef Name="Id_Тип_продукции" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Заявка" EntityType="Self.Заявка" />
+          <EntitySet Name="Импортируемая_продукция" EntityType="Self.Импортируемая_продукция" />
+          <EntitySet Name="Партнеры" EntityType="Self.Партнеры" />
+          <EntitySet Name="Сотрудники" EntityType="Self.Сотрудники" />
+          <EntitySet Name="Тип_импортируемой_продукции" EntityType="Self.Тип_импортируемой_продукции" />
+          <AssociationSet Name="FK__Заявка__Id_Партн__45F365D3" Association="Self.FK__Заявка__Id_Партн__45F365D3">
+            <End Role="Партнеры" EntitySet="Партнеры" />
+            <End Role="Заявка" EntitySet="Заявка" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заявка__Id_Проду__46E78A0C" Association="Self.FK__Заявка__Id_Проду__46E78A0C">
+            <End Role="Импортируемая_продукция" EntitySet="Импортируемая_продукция" />
+            <End Role="Заявка" EntitySet="Заявка" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Заявка__Id_Сотру__47DBAE45" Association="Self.FK__Заявка__Id_Сотру__47DBAE45">
+            <End Role="Сотрудники" EntitySet="Сотрудники" />
+            <End Role="Заявка" EntitySet="Заявка" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Импортиру__Id_Ти__3E52440B" Association="Self.FK__Импортиру__Id_Ти__3E52440B">
+            <End Role="Тип_импортируемой_продукции" EntitySet="Тип_импортируемой_продукции" />
+            <End Role="Импортируемая_продукция" EntitySet="Импортируемая_продукция" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Database1ModelContainer" CdmEntityContainer="Database1Entities">
+          <EntitySetMapping Name="Заявка">
+            <EntityTypeMapping TypeName="Database1Model.Заявка">
+              <MappingFragment StoreEntitySet="Заявка">
+                <ScalarProperty Name="Id_Заявки" ColumnName="Id_Заявки" />
+                <ScalarProperty Name="Id_Партнера" ColumnName="Id_Партнера" />
+                <ScalarProperty Name="Id_Продукции" ColumnName="Id_Продукции" />
+                <ScalarProperty Name="Id_Сотрудника" ColumnName="Id_Сотрудника" />
+                <ScalarProperty Name="Дата_заявки" ColumnName="Дата_заявки" />
+                <ScalarProperty Name="Дата_обработки" ColumnName="Дата_обработки" />
+                <ScalarProperty Name="Статус_заявки" ColumnName="Статус_заявки" />
+                <ScalarProperty Name="Комментарий_сотрудника" ColumnName="Комментарий_сотрудника" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Импортируемая_продукция">
+            <EntityTypeMapping TypeName="Database1Model.Импортируемая_продукция">
+              <MappingFragment StoreEntitySet="Импортируемая_продукция">
+                <ScalarProperty Name="Id_Продукции" ColumnName="Id_Продукции" />
+                <ScalarProperty Name="Id_Тип_продукции" ColumnName="Id_Тип_продукции" />
+                <ScalarProperty Name="Наименование_продукции" ColumnName="Наименование_продукции" />
+                <ScalarProperty Name="Артикул" ColumnName="Артикул" />
+                <ScalarProperty Name="Минимальная_стоимость_для_партнера" ColumnName="Минимальная_стоимость_для_партнера" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Партнеры">
+            <EntityTypeMapping TypeName="Database1Model.Партнеры">
+              <MappingFragment StoreEntitySet="Партнеры">
+                <ScalarProperty Name="Id_Партнера" ColumnName="Id_Партнера" />
+                <ScalarProperty Name="Тип_партнера" ColumnName="Тип_партнера" />
+                <ScalarProperty Name="Наименование_партнера" ColumnName="Наименование_партнера" />
+                <ScalarProperty Name="Директор" ColumnName="Директор" />
+                <ScalarProperty Name="Электронная_почта" ColumnName="Электронная_почта" />
+                <ScalarProperty Name="Телефон" ColumnName="Телефон" />
+                <ScalarProperty Name="Юридический_адрес" ColumnName="Юридический_адрес" />
+                <ScalarProperty Name="ИНН" ColumnName="ИНН" />
+                <ScalarProperty Name="Рейтинг" ColumnName="Рейтинг" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Сотрудники">
+            <EntityTypeMapping TypeName="Database1Model.Сотрудники">
+              <MappingFragment StoreEntitySet="Сотрудники">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ФИО" ColumnName="ФИО" />
+                <ScalarProperty Name="ДатаРождения" ColumnName="ДатаРождения" />
+                <ScalarProperty Name="ПаспортныеДанные" ColumnName="ПаспортныеДанные" />
+                <ScalarProperty Name="БанковскиеРеквизиты" ColumnName="БанковскиеРеквизиты" />
+                <ScalarProperty Name="НаличиеСемьи" ColumnName="НаличиеСемьи" />
+                <ScalarProperty Name="СостояниеЗдоровья" ColumnName="СостояниеЗдоровья" />
+                <ScalarProperty Name="Доступ" ColumnName="Доступ" />
+                <ScalarProperty Name="Должность" ColumnName="Должность" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Тип_импортируемой_продукции">
+            <EntityTypeMapping TypeName="Database1Model.Тип_импортируемой_продукции">
+              <MappingFragment StoreEntitySet="Тип_импортируемой_продукции">
+                <ScalarProperty Name="Id_Тип_продукции" ColumnName="Id_Тип_продукции" />
+                <ScalarProperty Name="Тип_продукции" ColumnName="Тип_продукции" />
+                <ScalarProperty Name="Коэффициент_типа_продукции" ColumnName="Коэффициент_типа_продукции" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

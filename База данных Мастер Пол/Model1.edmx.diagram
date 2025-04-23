@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2e434314e39240f1b38228c7c4c65e65" Name="Diagram1" ZoomLevel="68">
+        <EntityTypeShape EntityType="Database1Model.Заявка" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Импортируемая_продукция" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Партнеры" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Сотрудники" Width="1.5" PointX="3" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model.Тип_импортируемой_продукции" Width="1.5" PointX="0.75" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="Database1Model.FK__Заявка__Id_Партн__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK__Заявка__Id_Проду__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK__Заявка__Id_Сотру__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model.FK__Импортиру__Id_Ти__3E52440B" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

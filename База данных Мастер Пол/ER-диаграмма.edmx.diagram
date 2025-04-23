@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ca1b137369f04a319f1ad7c070d8db9b" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="Database1Model1.Заявка" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model1.Импортируемая_продукция" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model1.Партнеры" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model1.Продажи_импортируемой_продукции_партнерам" Width="1.5" PointX="7.125" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model1.Сотрудники" Width="1.5" PointX="3.125" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model1.Тип_импортируемой_продукции" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Database1Model1.Тип_материала_продукции" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <AssociationConnector Association="Database1Model1.FK__Заявка__Id_Партн__04E4BC85" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model1.FK__Заявка__Id_Проду__05D8E0BE" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model1.FK__Заявка__Id_Сотру__06CD04F7" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model1.FK__Продажи_и__Id_За__07C12930" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model1.FK__Импортиру__Id_Ти__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="Database1Model1.FK__Тип_матер__Id_Пр__6D0D32F4" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
