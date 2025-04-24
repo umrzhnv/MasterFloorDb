@@ -13,6 +13,21 @@
 производственной 
 осуществляются в рублях.
 
+## Демонстрация
+
+![Главное окно приложения](Screenshots_MFdb/mainmenu.png)
+
+![Информация о компании "Мастер Пол"](Screenshots_MFdb/inf_company.png)
+_Информация о компании "Мастер Пол"_
+
+![Список партнеров](Screenshots_MFdb/partners.png)
+_Таблица из БД транслируется с помощью DataGridView_
+
+![Список продукции](Screenshots_MFdb/production.png)
+_Таблица из БД транслируется с помощью DataGridView_
+
+![Создание заявки](Screenshots_MFdb/request.png)
+
 ## Установка
 
 1.  **Предварительные требования:**
